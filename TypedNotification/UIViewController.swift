@@ -1,4 +1,3 @@
-#if canImport(UIKit)
 import UIKit
 
 public extension UIViewController  {
@@ -11,4 +10,3 @@ public extension UIViewController  {
         _ = NotificationCenter.default.addObserver(forType, sender: nil, queue: nil, using: block)
     }
 }
-#endif
