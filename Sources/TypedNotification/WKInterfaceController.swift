@@ -1,3 +1,4 @@
+#if os(watchOS)
 import WatchKit
 
 public extension WKInterfaceController  {
@@ -18,3 +19,4 @@ public extension WKInterfaceController  {
         _ = NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil, using: block)
     }
 }
+#endif
