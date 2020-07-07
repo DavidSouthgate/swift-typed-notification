@@ -1,7 +1,7 @@
 #if os(iOS)
 import UIKit
 
-public extension UIViewController  {
+public extension UIApplicationDelegate  {
  
     func post<N : TypedNotification>(_ notification: N) {
         NotificationCenter.default.post(notification)
