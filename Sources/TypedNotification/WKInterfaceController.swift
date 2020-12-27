@@ -22,5 +22,9 @@ public extension WKInterfaceController  {
     func removeObserver(_ observer: NSObjectProtocol) {
         NotificationCenter.default.removeObserver(observer)
     }
+    
+    func removeObservers(_ observers: [NSObjectProtocol]) {
+        NotificationCenter.default.removeObservers(observers)
+    }
 }
 #endif

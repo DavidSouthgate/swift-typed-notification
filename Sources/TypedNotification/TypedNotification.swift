@@ -33,4 +33,10 @@ extension NotificationCenter : TypedNotificationCenter {
             block(typedNotification)
         }
     }
+    
+    public func removeObservers(_ observers: [NSObjectProtocol]) {
+        for observer in observers {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
 }
