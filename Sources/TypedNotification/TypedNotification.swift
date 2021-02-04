@@ -15,7 +15,7 @@ public protocol TypedNotificationCenter {
 }
 
 extension NotificationCenter : TypedNotificationCenter {
-    static var typedNotificationUserInfoKey = "_TypedNotification"
+    public static var typedNotificationUserInfoKey = "_TypedNotification"
 
     public func post<N>(_ notification: N) where N : TypedNotification {
         post(name: N.name, object: notification.sender,
