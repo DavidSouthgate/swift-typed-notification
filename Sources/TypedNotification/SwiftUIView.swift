@@ -13,6 +13,11 @@ extension View {
             action(typedNotification)
         })
     }
+
+    @inlinable public func onReceive(_ name: NSNotification.Name, perform action: @escaping (Notification) -> Void) -> some View {
+        let publisher = NotificationCenter.default.publisher(for: name)
+        return self.onReceive(publisher, perform: action)
+    }
 }
 
 #endif
