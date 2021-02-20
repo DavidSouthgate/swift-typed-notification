@@ -24,7 +24,7 @@ extension NotificationCenter : TypedNotificationCenter {
         ])
     }
     
-    public func addObserver<N>(_ forType: N.Type, sender: N.Sender?, queue: OperationQueue?, using block: @escaping (N) -> Void) -> NSObjectProtocol where N : TypedNotification {
+    public func addObserver<N>(_ forType: N.Type, sender: N.Sender? = nil, queue: OperationQueue? = nil, using block: @escaping (N) -> Void) -> NSObjectProtocol where N : TypedNotification {
         return addObserver(forName: N.name, object: sender, queue: queue) { n in
             guard let typedNotification = n.userInfo?[NotificationCenter.typedNotificationUserInfoKey] as? N else {
                 fatalError("Could not construct a typed notification: \(N.name) from notification: \(n)")

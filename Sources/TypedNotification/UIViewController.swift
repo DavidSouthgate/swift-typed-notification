@@ -8,7 +8,7 @@ public extension UIViewController  {
     }
     
     func addObserver<N>(_ forType: N.Type, queue: OperationQueue? = nil, using block: @escaping (N) -> Void) -> NSObjectProtocol where N : TypedNotification {
-        return NotificationCenter.default.addObserver(forType, sender: nil, queue: nil, using: block)
+        return NotificationCenter.default.addObserver(forType, using: block)
     }
     
     func removeObserver(_ observer: NSObjectProtocol) {
