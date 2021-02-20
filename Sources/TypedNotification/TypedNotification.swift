@@ -10,6 +10,7 @@ public protocol TypedNotificationCenter {
 
     func post<N : TypedNotification>(_ notification: N)
 
+    @discardableResult
     func addObserver<N : TypedNotification>(_ forType: N.Type, sender: N.Sender?,
                                             queue: OperationQueue?, using block: @escaping (N) -> Void) -> NSObjectProtocol
 }
@@ -24,6 +25,7 @@ extension NotificationCenter : TypedNotificationCenter {
         ])
     }
     
+    @discardableResult
     public func addObserver<N>(_ forType: N.Type, sender: N.Sender? = nil, queue: OperationQueue? = nil, using block: @escaping (N) -> Void) -> NSObjectProtocol where N : TypedNotification {
         return addObserver(forName: N.name, object: sender, queue: queue) { n in
             guard let typedNotification = n.userInfo?[NotificationCenter.typedNotificationUserInfoKey] as? N else {

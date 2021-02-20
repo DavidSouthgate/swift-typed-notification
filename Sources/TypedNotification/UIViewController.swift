@@ -7,6 +7,7 @@ public extension UIViewController  {
         NotificationCenter.default.post(notification)
     }
     
+    @discardableResult
     func addObserver<N>(_ forType: N.Type, queue: OperationQueue? = nil, using block: @escaping (N) -> Void) -> NSObjectProtocol where N : TypedNotification {
         return NotificationCenter.default.addObserver(forType, using: block)
     }
