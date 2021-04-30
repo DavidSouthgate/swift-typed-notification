@@ -1,9 +1,6 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-/*
-TODO Uncomment Code when issue with View not existing is sorted
-
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
 
@@ -21,6 +18,6 @@ extension View {
         let publisher = NotificationCenter.default.publisher(for: name)
         return self.onReceive(publisher, perform: action)
     }
-}*/
+}
 
 #endif
