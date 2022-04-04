@@ -55,7 +55,7 @@ extension NotificationCenter : TypedNotificationCenter {
     }
     
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public func publisher<N>(for type: N.Type, object: AnyObject?) -> TypedNotificationPublisher<N> where N : TypedNotification {
+    public func publisher<N>(for type: N.Type, object: AnyObject? = nil) -> TypedNotificationPublisher<N> where N : TypedNotification {
         return self.publisher(for: type.name)
             .map { n -> N in
                 guard let typedNotification = n.userInfo?[NotificationCenter.typedNotificationUserInfoKey] as? N else {
