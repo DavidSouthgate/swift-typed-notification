@@ -1,10 +1,14 @@
 import Foundation
+import Combine
 
 public protocol TypedNotification {
     associatedtype Sender
     static var name: Notification.Name { get }
     var sender: Sender { get }
 }
+
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+public typealias TypedNotificationPublisher<N> = AnyPublisher<N, Never>
 
 public protocol TypedNotificationCenter {
 
@@ -13,6 +17,9 @@ public protocol TypedNotificationCenter {
     @discardableResult
     func addObserver<N : TypedNotification>(_ forType: N.Type, sender: N.Sender?,
                                             queue: OperationQueue?, using block: @escaping (N) -> Void) -> NSObjectProtocol
+    
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    func publisher<N>(for type: N.Type, object: AnyObject?) -> TypedNotificationPublisher<N> where N : TypedNotification
 }
 
 extension NotificationCenter : TypedNotificationCenter {
@@ -45,5 +52,17 @@ extension NotificationCenter : TypedNotificationCenter {
         for observer in observers {
             NotificationCenter.default.removeObserver(observer)
         }
+    }
+    
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    public func publisher<N>(for type: N.Type, object: AnyObject?) -> TypedNotificationPublisher<N> where N : TypedNotification {
+        return self.publisher(for: type.name)
+            .map { n -> N in
+                guard let typedNotification = n.userInfo?[NotificationCenter.typedNotificationUserInfoKey] as? N else {
+                    fatalError("Could not construct a typed notification: \(N.name) from notification: \(n)")
+                }
+                return typedNotification
+            }
+            .eraseToAnyPublisher()
     }
 }
